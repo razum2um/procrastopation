@@ -1,0 +1,19 @@
+#app, body, html, .mood {
+  height: 100%;
+  width: 100%; }
+
+.mood {
+  display: flex;
+  flex-direction: column; }
+  .mood-choice {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10em; }
+    .mood-choice-good {
+      background-color: #3dc267; }
+    .mood-choice-bad {
+      background-color: #08343f; }

@@ -7,6 +7,7 @@
   :dependencies [[org.clojure/clojure "1.10.0-alpha8"]
                  [org.clojure/clojurescript "1.10.339" :scope "provided"]
                  [com.cognitect/transit-clj "0.8.313"]
+                 [duratom "0.4.1"]
                  [ring "1.7.0"]
                  [ring/ring-defaults "0.3.2"]
                  [bk/ring-gzip "0.3.0"]
@@ -18,11 +19,17 @@
                  [org.danielsz/system "0.4.1"]
                  [org.clojure/tools.namespace "0.3.0-alpha4"]
                  [http-kit "2.3.0"]
+                 [cljs-ajax "0.7.4"]
+                 [metosin/muuntaja "0.6.1"]
+                 [clojure.java-time "0.3.2"]
+                 [binaryage/devtools "0.9.10"]
                  [reagent "0.8.1"]]
 
   :plugins [[lein-cljsbuild "1.1.7"]
             [lein-environ "1.1.0"]
             [lein-sassc "0.10.5"]
+            [refactor-nrepl "2.4.0"]
+            [cider/cider-nrepl "0.18.0"]
             [lein-auto "0.1.3"]]
 
   :min-lein-version "2.6.1"
@@ -50,6 +57,8 @@
                 :figwheel {:on-jsload "procrastopation.system/reset"}
 
                 :compiler {:main cljs.user
+                           ;; https://github.com/binaryage/cljs-devtools/blob/master/docs/installation.md
+                           :preloads [devtools.preload]
                            :asset-path "js/compiled/out"
                            :output-to "dev-target/public/js/compiled/procrastopation.js"
                            :output-dir "dev-target/public/js/compiled/out"
