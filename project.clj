@@ -23,6 +23,7 @@
                  [metosin/muuntaja "0.6.1"]
                  [clojure.java-time "0.3.2"]
                  [binaryage/devtools "0.9.10"]
+                 [com.taoensso/nippy "2.14.0"]
                  [reagent "0.8.1"]]
 
   :plugins [[lein-cljsbuild "1.1.7"]
