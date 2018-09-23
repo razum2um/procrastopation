@@ -29,4 +29,5 @@
 
 (defn mood-routes [endpoint]
   (routes
+   (GET "/mood" req {:body @state})
    (POST "/mood" req (recv-mood req))))

@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+@font-face {
+    unicode-range: U+2705; // U+1F431-U+1F63A;
+}
+
 #app, body, html, .mood {
     height: 100%;
     width: 100%;
@@ -23,6 +27,16 @@
 
         &-bad {
             background-color: #08343f;
+        }
+
+        .mood-text {
+            position: relative;
+        }
+
+        .mood-text-emoji:before {
+            content: "\02705";
+            position: absolute;
+            transform: scale(.6) translate(-150%, 0);;
         }
     }
 }
