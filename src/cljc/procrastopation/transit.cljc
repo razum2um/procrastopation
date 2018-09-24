@@ -7,12 +7,13 @@
                        goog.date.UtcDateTime
                        goog.date.Date]))
   ;; #?(:clj (:import [org.joda.time]))
-  #?(:clj (:import [java.time.LocalDate])))
+  #?(:clj (:import [java.time LocalDate]))
+  )
 
 #?(:clj (set! *warn-on-reflection* true))
 
 ;; (def DateTime #?(:clj org.joda.time.DateTime, :cljs goog.date.UtcDateTime))
-(def LocalDate #?(:clj java.time.LocalDate
+(def TransitLocalDate #?(:clj LocalDate
                   :cljs goog.date.Date))
 
 #_(defn write-date-time
@@ -37,7 +38,7 @@
 (defn write-local-date
   "Represent Date in YYYY-MM-DD format."
   [x]
-  #?(:clj  (.toString ^java.time.LocalDate x)
+  #?(:clj  (.toString ^LocalDate x)
      :cljs (.toIsoString x true false)))
 
 (defn read-local-date
@@ -49,7 +50,7 @@
 
 (def writers
   {;;DateTime  (transit/write-handler (constantly "DateTime") write-date-time)
-   LocalDate (transit/write-handler (constantly "LocalDate") write-local-date)})
+   TransitLocalDate (transit/write-handler (constantly "LocalDate") write-local-date)})
 
 (def readers
   {;;"DateTime" (transit/read-handler read-date-time)

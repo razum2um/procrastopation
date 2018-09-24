@@ -8,7 +8,6 @@
             [ring.middleware.file :refer [wrap-file]]
             [system.components.middleware :refer [new-middleware]]
             [figwheel-sidecar.repl-api :as figwheel]
-            [procrastopation.components.shell-component :refer [shell-component]]
             [procrastopation.config :refer [config]]))
 
 (defn dev-system []
@@ -19,7 +18,6 @@
                                            (:middleware config))})
            :figwheel-system (fw-sys/figwheel-system (fw-config/fetch-config))
            :css-watcher (fw-sys/css-watcher {:watch-paths ["resources/public/css"]})
-           ;; :sass (shell-component "lein" "auto" "sassc" "once")
            )))
 
 (reloaded.repl/set-init! #(dev-system))

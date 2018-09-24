@@ -4,9 +4,10 @@
             [java-time :as java-time]
             [taoensso.nippy :as nippy]
             [compojure.core :refer [ANY GET PUT POST DELETE routes]])
-  (:import [java.time.LocalDate]))
+  (:import [java.time LocalDate])
+  )
 
-(nippy/extend-freeze java.time.LocalDate :java.time/local-date
+(nippy/extend-freeze LocalDate :java.time/local-date
                      [x data-output]
                      (.writeUTF data-output (str x)))
 
