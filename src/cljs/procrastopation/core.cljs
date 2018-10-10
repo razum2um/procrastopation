@@ -42,6 +42,12 @@
 (defn today []
   (goog.date.Date.))
 
+(defn todays-value []
+  (some->> @state
+           (filter (fn [[k v]] (= k (today))))
+           first
+           val))
+
 ;; views
 
 (defn mood []
@@ -49,12 +55,12 @@
    [:div.mood-choice.mood-choice-good
     {:on-click #(send-mood 1)}
     [:div.mood-text
-     {:class (when (-> @state (get (today)) (= 1)) "mood-text-emoji")}
+     {:class (when (= 1 (todays-value)) "mood-text-emoji")}
      "Good"]]
    [:div.mood-choice.mood-choice-bad
     {:on-click #(send-mood 0)}
     [:div.mood-text
-     {:class (when (-> @state (get (today)) (= 0)) "mood-text-emoji")}
+     {:class (when (= 0 (todays-value)) "mood-text-emoji")}
      "Bad"]]])
 
 (defn app []
