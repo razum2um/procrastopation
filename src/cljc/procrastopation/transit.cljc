@@ -1,5 +1,5 @@
 (ns procrastopation.transit
-  "From: https://gist.github.com/Deraen/eb3f650c472fb1abe970"
+  "From: https://gist.github.com/Deraen/eb3f650c472fb1abe970 + equiv https://gist.github.com/onetom/3a6a7bd7e15f01aae4adc1fcd5f0dc3e"
   (:require [cognitect.transit :as transit]
             [clojure.string :as string]
             #?@(:clj [[java-time :as java-time]])
@@ -11,6 +11,17 @@
   )
 
 #?(:clj (set! *warn-on-reflection* true))
+
+#?(:cljs
+   (extend-type goog.date.Date
+     IEquiv
+     (-equiv [o other]
+       (and (instance? goog.date.Date other)
+            (identical? (.getTime o) (.getTime other))
+            (identical? (.getTimezoneOffset o) (.getTimezoneOffset other))))
+     IComparable
+     (-compare [o other]
+       (- (.getTime o) (.getTime other)))))
 
 ;; (def DateTime #?(:clj org.joda.time.DateTime, :cljs goog.date.UtcDateTime))
 (def TransitLocalDate #?(:clj LocalDate
