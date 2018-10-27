@@ -2,7 +2,7 @@
   (:require [reagent.core :as reagent :refer [atom]]
             [procrastopation.common]
             [procrastopation.transit :as transit]
-            [ajax.core :refer [GET POST transit-response-format]]
+            [ajax.core :refer [GET POST transit-response-format transit-request-format]]
             [goog.date.Date]))
 
 (enable-console-print!)
@@ -22,25 +22,27 @@
 
 
 (def response-format (transit-response-format {:handlers transit/readers}))
+(def request-format (transit-request-format {:handlers transit/writers}))
 
 ;; date => int
 (defonce state (atom {}))
 
 (defn recv-mood [resp]
-  (js/console.log resp)
+  (-> resp clj->js js/console.log)
   (reset! state resp))
 
+(defn today []
+  (goog.date.Date.))
+
 (defn send-mood [mood]
-  (POST "/mood" {:params {:mood mood}
+  (POST "/mood" {:params {:mood mood :date (today)}
+                 :format request-format
                  :response-format response-format
                  :handler recv-mood}))
 
 (defn get-mood []
   (GET "/mood" {:response-format response-format
                 :handler recv-mood}))
-
-(defn today []
-  (goog.date.Date.))
 
 (defn todays-value []
   (some->> @state

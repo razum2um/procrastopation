@@ -19,11 +19,13 @@
 (defn encode-local-date-transit [handler]
   (muuntaja.mw/wrap-format
    handler
-   (assoc-in muuntaja/default-options
-             [:formats "application/transit+json" :encoder]
-             [#(muuntaja.transit/encoder
-               :json
-               (assoc % :handlers transit/writers))])))
+   (-> muuntaja/default-options
+       (assoc-in [:formats "application/transit+json" :encoder]
+                 [#(muuntaja.transit/encoder :json
+                    (assoc % :handlers transit/writers))])
+       (assoc-in [:formats "application/transit+json" :decoder]
+                 [#(muuntaja.transit/decoder :json
+                    (assoc % :handlers transit/readers))]))))
 
 (defn app-system [config]
   (component/system-map

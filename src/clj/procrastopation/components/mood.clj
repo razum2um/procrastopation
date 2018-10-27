@@ -23,9 +23,8 @@
                                  :write nippy/freeze-to-file}))
 
 (defn recv-mood [req]
-  (let [{:keys [mood]} (:body-params req)
-        today (java-time/local-date)
-        state* (swap! state assoc today mood)]
+  (let [{:keys [date mood]} (:body-params req)
+        state* (swap! state assoc date mood)]
     {:body state*}))
 
 (defn mood-routes [endpoint]

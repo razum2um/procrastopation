@@ -55,13 +55,14 @@
 (defn read-local-date
   "Read Date in YYYY-MM-DD format."
   [x]
-  #?(:clj  (java-time/local-date x)
+  #?(:clj (java-time/local-date x)
      :cljs (let [[_ y m d] (re-find #"(\d{4})-(\d{2})-(\d{2})" x)]
              (goog.date.Date. (long y) (dec (long m)) (long d)))))
 
 (def writers
   {;;DateTime  (transit/write-handler (constantly "DateTime") write-date-time)
-   TransitLocalDate (transit/write-handler (constantly "LocalDate") write-local-date)})
+   TransitLocalDate (transit/write-handler (constantly "LocalDate") write-local-date)
+   })
 
 (def readers
   {;;"DateTime" (transit/read-handler read-date-time)
